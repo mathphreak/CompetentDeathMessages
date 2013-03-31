@@ -30,7 +30,13 @@ public abstract class AllMessages {
 		// ...and now for mathphreak's
 		new Message("<victim> was left for dead", null, null, EntityType.ZOMBIE),
 		new Message("The cacti ate <victim>", null, Material.CACTUS, null),
-		new Message("<killer> pushed <victim> off a cliff", DamageCause.FALL, null, EntityType.PLAYER)
+		new Message("<killer> pushed <victim> off a cliff", DamageCause.FALL, null, EntityType.PLAYER),
+		new Message("<victim> got witch slapped", null, null, EntityType.WITCH),
+		new Message("<victim> went up in flames", DamageCause.FIRE, null, null),
+		new Message("<victim> was a great conductor of electricity", DamageCause.LIGHTNING, null, null),
+		new Message("<victim> was smited by an admin", DamageCause.CUSTOM, null, null),
+		new Message("<victim> died, so everyone should yell at Prod again", DamageCause.CUSTOM, null, null),
+		new Message("<victim> forgot to pack a lunch", DamageCause.STARVATION, null, null)
 	};
 	
 	public final static Message genericMessage = new Message("<victim> died mysteriously", null, null, null);
