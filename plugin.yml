@@ -1,0 +1,9 @@
+name: CompetentDeathMessages
+main: com.republicasmp.cdm.CompetentDeathMessages
+version: 0.0.42
+commands:
+    fakekill:
+        description: Send a message as if you killed someone.
+        usage: /<command> [player]
+        permission: cdm.fakekill
+        permission-message: You can't do that.
