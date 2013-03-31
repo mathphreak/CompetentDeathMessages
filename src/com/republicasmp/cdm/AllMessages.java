@@ -8,6 +8,7 @@ public abstract class AllMessages {
 	public final static Message allMessages[] = {
 		// the way this works is:
 		// new Message(template, player damage cause, entity type that killed the player, material)
+		// and leave the things that don't matter as "null"
 		// the material could be a block or a held item
 		// so to keep that from becoming an issue, use EntityType.PLAYER as the entity type for things where
 		// a player killed another player
