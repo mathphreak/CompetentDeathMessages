@@ -29,6 +29,9 @@ public abstract class AllMessages {
 		
 		// ...and now for mathphreak's
 		new Message("<victim> was left for dead", null, null, EntityType.ZOMBIE),
-		new Message("The cacti ate <victim>", null, Material.CACTUS, null)
+		new Message("The cacti ate <victim>", null, Material.CACTUS, null),
+		new Message("<killer> pushed <victim> off a cliff", DamageCause.FALL, null, EntityType.PLAYER)
 	};
+	
+	public final static Message genericMessage = new Message("<victim> died mysteriously", null, null, null);
 }

@@ -20,23 +20,32 @@ public abstract class MessageWrapper {
 				}
 			}
 		}
-		Random random = new Random();
-		return potentialMessages.get(random.nextInt(potentialMessages.size()));
+		if (potentialMessages.isEmpty()) {
+			return AllMessages.genericMessage;
+		} else {
+			Random random = new Random();
+			return potentialMessages.get(random.nextInt(potentialMessages
+					.size()));
+		}
 	}
 	
 	public static String getMessage(String victimName, Material blockKilledBy) {
-		return getMessage((DamageCause) null, null, blockKilledBy).instantiate(victimName, "");
+		return getMessage((DamageCause) null, null, blockKilledBy).instantiate("", victimName);
 	}
 	
 	public static String getMessage(String victimName, EntityType murdererType) {
-		return getMessage((DamageCause) null, murdererType, null).instantiate(victimName, "");
+		return getMessage((DamageCause) null, murdererType, null).instantiate("", victimName);
 	}
 	
 	public static String getMessage(String victimName, String killerName, Material heldItemType) {
-		return getMessage((DamageCause) null, EntityType.PLAYER, heldItemType).instantiate(victimName, killerName);
+		return getMessage((DamageCause) null, EntityType.PLAYER, heldItemType).instantiate(killerName, victimName);
 	}
 	
 	public static String getMessage(String victimName, DamageCause cause) {
-		return getMessage(cause, null, null).instantiate(victimName, "");
+		return getMessage(cause, null, null).instantiate("", victimName);
+	}
+	
+	public static String getMessage(String victimName, String killerName, DamageCause cause) {
+		return getMessage(cause, EntityType.PLAYER, null).instantiate(killerName, victimName);
 	}
 }
