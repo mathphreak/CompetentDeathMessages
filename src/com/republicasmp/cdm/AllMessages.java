@@ -81,6 +81,14 @@ public abstract class AllMessages {
 		"<victim> was struck by lightning"
 	};
 	
+	private final static String suffocation[] = {
+		"<victim> had its head in the blocks"
+	};
+	
+	private final static String suicide[] = {
+		"<victim> was tired of living"
+	};
+	
 	public final static Message allMessages[] = {
 		// if there are any uncategorized messages, they go here
 		// but there shouldn't be
@@ -101,6 +109,8 @@ public abstract class AllMessages {
 		handleDamageCause(lightning, DamageCause.LIGHTNING);
 		handleDamageCause(poison, DamageCause.POISON);
 		handleDamageCause(starvation, DamageCause.STARVATION);
+		handleDamageCause(suffocation, DamageCause.SUFFOCATION);
+		handleDamageCause(suicide, DamageCause.SUICIDE);
 		
 		// for damage from a block
 		handleBlockDamage(cactus, Material.CACTUS);
