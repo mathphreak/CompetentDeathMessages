@@ -1,43 +1,157 @@
 package com.republicasmp.cdm;
 
+import java.util.ArrayList;
+
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 public abstract class AllMessages {
-	public final static Message allMessages[] = {
-		// the way this works is:
-		// new Message(template, player damage cause, entity type that killed the player, material)
-		// and leave the things that don't matter as "null"
-		// the material could be a block or a held item
-		// so to keep that from becoming an issue, use EntityType.PLAYER as the entity type for things where
-		// a player killed another player
-		// don't forget commas after each one except the last one
-		
-		// thanks for these, sicknote!
-		new Message("Cleanup on aisle 12, we seem to have spilled some <victim>", DamageCause.FALL, null, null),
-		new Message("<victim> can't break the laws of physics", DamageCause.FALL, null, null),
-		new Message("<victim> couldn't keep it up", DamageCause.FALL, null, null),
-		new Message("<victim> forgot to drink Red Bull", DamageCause.FALL, null, null),
-		
-		new Message("<killer>'s rod was too much for <victim> to handle", null, Material.STICK, EntityType.PLAYER),
-		
-		new Message("<victim>'s relationship with the squid could never last", DamageCause.DROWNING, null, null),
-		new Message("<victim> drowned", DamageCause.DROWNING, null, null),
-		new Message("<victim> forgot how to swim", DamageCause.DROWNING, null, null),
-		new Message("<victim> must have tried on concrete shoes", DamageCause.DROWNING, null, null),
-		
-		// ...and now for mathphreak's
-		new Message("<victim> was left for dead", null, null, EntityType.ZOMBIE),
-		new Message("The cacti ate <victim>", null, Material.CACTUS, null),
-		new Message("<killer> pushed <victim> off a cliff", DamageCause.FALL, null, EntityType.PLAYER),
-		new Message("<victim> got witch slapped", null, null, EntityType.WITCH),
-		new Message("<victim> went up in flames", DamageCause.FIRE, null, null),
-		new Message("<victim> was a great conductor of electricity", DamageCause.LIGHTNING, null, null),
-		new Message("<victim> was smited by an admin", DamageCause.CUSTOM, null, null),
-		new Message("<victim> died, so everyone should yell at Prod again", DamageCause.CUSTOM, null, null),
-		new Message("<victim> forgot to pack a lunch", DamageCause.STARVATION, null, null)
+	private final static String fallDamage[] = {
+		"Cleanup on aisle 12, we seem to have spilled some <victim>",
+		"<victim> can't break the laws of physics",
+		"<victim> couldn't keep it up",
+		"<victim> forgot to drink Red Bull"
 	};
+	
+	private final static String drowning[] = {
+		"<victim>'s relationship with the squid could never last",
+		"<victim> drowned",
+		"<victim> forgot how to swim",
+		"<victim> must have tried on concrete shoes"
+	};
+	
+	private final static String zombies[] = {
+		"<victim> was left for dead"
+	};
+	
+	private final static String witch[] = {
+		"<victim> got witch slapped"
+	};
+	
+	private final static String customDeathType[] = {
+		"<victim> was possibly smited by an admin",
+		"<victim> died (it was prod's fault)",
+		"<victim> suffered death by Republica"
+	};
+	
+	private final static String pushedFall[] = {
+		"<killer> pushed <victim> off a cliff"
+	};
+	
+	private final static String cactus[] = {
+		"The cacti ate <victim>",
+		"<victim> hugged a cactus"
+	};
+	
+	private final static String playerStick[] = {
+		"<killer>'s rod was too much for <victim> to handle"
+	};
+	
+	private final static String playerNothing[] = {
+		"<killer> savagely beat <victim> to death with his/her bare hands",
+		"<killer> savagely beat <victim> to death with her/his bare hands"
+	};
+	
+	private final static String fire[] = {
+		"<victim> combusted"
+	};
+	
+	private final static String explosion[] = {
+		"<victim> is now scattered atoms"
+	};
+	
+	private final static String fallingWhatever[] = {
+		"<victim> was squished to death under something" // TODO if it was an anvil, laugh about it
+	};
+	
+	private final static String lava[] = {
+		"<victim> forgot the difference between water and lava"
+	};
+	
+	private final static String poison[] = {
+		"<victim> drank too much expired milk"
+	};
+	
+	private final static String starvation[] = {
+		"<victim> forgot to pack a lunch"
+	};
+	
+	private final static String lightning[] = {
+		"<victim> was struck by lightning"
+	};
+	
+	public final static Message allMessages[] = {
+		// if there are any uncategorized messages, they go here
+		// but there shouldn't be
+	};
+	
+	public final static ArrayList<Message> messages = new ArrayList<Message>();
+	
+	static {
+		// for damage not from a block or a LivingEntity
+		handleDamageCause(explosion, DamageCause.BLOCK_EXPLOSION);
+		handleDamageCause(customDeathType, DamageCause.CUSTOM);
+		handleDamageCause(drowning, DamageCause.DROWNING);
+		handleDamageCause(fallDamage, DamageCause.FALL);
+		handleDamageCause(fallingWhatever, DamageCause.FALLING_BLOCK);
+		handleDamageCause(fire, DamageCause.FIRE);
+		handleDamageCause(fire, DamageCause.FIRE_TICK);
+		handleDamageCause(lava, DamageCause.LAVA);
+		handleDamageCause(lightning, DamageCause.LIGHTNING);
+		handleDamageCause(poison, DamageCause.POISON);
+		handleDamageCause(starvation, DamageCause.STARVATION);
+		
+		// for damage from a block
+		handleBlockDamage(cactus, Material.CACTUS);
+		
+		// for damage from a monster
+		handleEntityDamage(zombies, EntityType.ZOMBIE);
+		handleEntityDamage(witch, EntityType.WITCH);
+		
+		// for damage from a cause and a player
+		handlePlayerCauseDamage(pushedFall, DamageCause.FALL);
+		
+		// for damage from a player holding something
+		handleArmedPlayerDamage(playerStick, Material.STICK);
+		
+		// for damage from a player not holding something
+		handleEntityDamage(playerNothing, EntityType.PLAYER);
+		
+		for (Message m : allMessages) {
+			messages.add(m);
+		}
+	}
+	
+	private static void handleDamageCause(String these[], DamageCause cause) {
+		for (String s : these) {
+			messages.add(new Message(s, cause, null, null));
+		}
+	}
+	
+	private static void handleBlockDamage(String these[], Material material) {
+		for (String s : these) {
+			messages.add(new Message(s, null, material, null));
+		}
+	}
+	
+	private static void handleEntityDamage(String these[], EntityType type) {
+		for (String s : these) {
+			messages.add(new Message(s, null, null, type));
+		}
+	}
+	
+	private static void handlePlayerCauseDamage(String these[], DamageCause cause) {
+		for (String s : these) {
+			messages.add(new Message(s, cause, null, EntityType.PLAYER));
+		}
+	}
+	
+	private static void handleArmedPlayerDamage(String these[], Material material) {
+		for (String s : these) {
+			messages.add(new Message(s, null, material, EntityType.PLAYER));
+		}
+	}
 	
 	public final static Message genericMessage = new Message("<victim> died mysteriously", null, null, null);
 }
