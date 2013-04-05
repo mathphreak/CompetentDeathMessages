@@ -2,6 +2,7 @@ package com.republicasmp.cdm;
 
 import java.util.ArrayList;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -32,7 +33,8 @@ public abstract class AllMessages {
 	private final static String customDeathType[] = {
 		"<victim> was possibly smited by an admin",
 		"<victim> died (it was prod's fault)",
-		"<victim> suffered death by Republica"
+		"<victim> suffered death by Republica",
+		ChatColor.MAGIC + "THE ADMINS" + ChatColor.RESET + " killed <victim>"
 	};
 	
 	private final static String pushedFall[] = {
@@ -89,6 +91,62 @@ public abstract class AllMessages {
 		"<victim> was tired of living"
 	};
 	
+	private final static String blaze[] = {
+		"<victim> went out in a blaze of glory"
+	};
+	
+	private final static String spider[] = {
+		"<victim> had an unfortunate encounter with a spider" // TODO cave vs regular spiders?
+	};
+	
+	private final static String creeper[] = {
+		"<victim>'s epitaph will be SsssssSssSSsSSssSS$...BOOM"
+	};
+	
+	private final static String ender_dragon[] = {
+		"<victim> 0; Ender Dragon 1"
+	};
+	
+	private final static String enderman[] = {
+		"<victim> saw static, then the faceless monster...no wait"
+	};
+	
+	private final static String ghast[] = {
+		"<victim> suffered a ghastly fate"
+	};
+	
+	private final static String iron_golem[] = {
+		"<victim> should have picked on something with less metal"
+	};
+	
+	private final static String magma_cube[] = {
+		"<victim> was killed by the coolest of all monsters"
+	};
+	
+	private final static String zombiepigman[] = {
+		"<victim> was slain by undead pigs...yay Minecraft!"
+	};
+	
+	private final static String silverfish[] = {
+		"<victim>'s corpse stinks of fish"
+	};
+	
+	private final static String skeleton[] = {
+		"<victim> was sniped from a distance"
+	};
+	
+	private final static String slime[] = {
+		"<victim> was slimed"
+	};
+	
+	private final static String wither[] = {
+		"<victim> messed with the boss"
+	};
+	
+	private final static String wolf[] = {
+		"<victim> was less lucky than Liam Neeson in " + ChatColor.ITALIC + "The Grey" + ChatColor.RESET
+	};
+	
 	public final static Message allMessages[] = {
 		// if there are any uncategorized messages, they go here
 		// but there shouldn't be
@@ -116,8 +174,23 @@ public abstract class AllMessages {
 		handleBlockDamage(cactus, Material.CACTUS);
 		
 		// for damage from a monster
-		handleEntityDamage(zombies, EntityType.ZOMBIE);
+		handleEntityDamage(blaze, EntityType.BLAZE);
+		handleEntityDamage(spider, EntityType.CAVE_SPIDER);
+		handleEntityDamage(creeper, EntityType.CREEPER);
+		handleEntityDamage(ender_dragon, EntityType.ENDER_DRAGON);
+		handleEntityDamage(enderman, EntityType.ENDERMAN);
+		handleEntityDamage(ghast, EntityType.GHAST);
+		handleEntityDamage(iron_golem, EntityType.IRON_GOLEM);
+		handleEntityDamage(magma_cube, EntityType.MAGMA_CUBE);
+		handleEntityDamage(zombiepigman, EntityType.PIG_ZOMBIE);
+		handleEntityDamage(silverfish, EntityType.SILVERFISH);
+		handleEntityDamage(skeleton, EntityType.SKELETON);
+		handleEntityDamage(slime, EntityType.SLIME);
+		handleEntityDamage(spider, EntityType.SPIDER);
 		handleEntityDamage(witch, EntityType.WITCH);
+		handleEntityDamage(wither, EntityType.WITHER);
+		handleEntityDamage(wolf, EntityType.WOLF);
+		handleEntityDamage(zombies, EntityType.ZOMBIE);
 		
 		// for damage from a cause and a player
 		handlePlayerCauseDamage(pushedFall, DamageCause.FALL);
