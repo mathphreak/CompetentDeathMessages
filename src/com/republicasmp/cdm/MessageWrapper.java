@@ -11,7 +11,7 @@ public abstract class MessageWrapper {
 	
 	private static Message getMessage(DamageCause cause, EntityType type, Material item) {
 		ArrayList<Message> potentialMessages = new ArrayList<Message>();
-		for (Message candidate : AllMessages.allMessages) {
+		for (Message candidate : AllMessages.messages) {
 			if (cause == null || cause.equals(candidate.getCause())) {
 				if (type == null || type.equals(candidate.getEntityType())) {
 					if (item == null || item.equals(candidate.getMaterial())) {
@@ -21,7 +21,11 @@ public abstract class MessageWrapper {
 			}
 		}
 		if (potentialMessages.isEmpty()) {
-			return AllMessages.genericMessage;
+			if (type != null && type.equals(EntityType.PLAYER) && item != null) {
+				return AllMessages.getFallbackArmedPlayerMessage(item);
+			} else {
+				return AllMessages.genericMessage;
+			}
 		} else {
 			Random random = new Random();
 			return potentialMessages.get(random.nextInt(potentialMessages

@@ -147,7 +147,7 @@ public abstract class AllMessages {
 		"<victim> was less lucky than Liam Neeson in " + ChatColor.ITALIC + "The Grey" + ChatColor.RESET
 	};
 	
-	public final static Message allMessages[] = {
+	private final static Message allMessages[] = {
 		// if there are any uncategorized messages, they go here
 		// but there shouldn't be
 	};
@@ -234,6 +234,10 @@ public abstract class AllMessages {
 		for (String s : these) {
 			messages.add(new Message(s, null, material, EntityType.PLAYER));
 		}
+	}
+	
+	public static Message getFallbackArmedPlayerMessage(Material itemHeld) {
+		return new Message("<killer> beat <victim> to death with a " + itemHeld.toString().toLowerCase(), null, itemHeld, EntityType.PLAYER);
 	}
 	
 	public final static Message genericMessage = new Message("<victim> died mysteriously", null, null, null);
