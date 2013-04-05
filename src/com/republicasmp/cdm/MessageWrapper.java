@@ -21,7 +21,7 @@ public abstract class MessageWrapper {
 			}
 		}
 		if (potentialMessages.isEmpty()) {
-			if (type != null && type.equals(EntityType.PLAYER) && item != null) {
+			if (type != null && type.equals(EntityType.PLAYER) && item != null && !item.equals(Material.AIR)) {
 				return AllMessages.getFallbackArmedPlayerMessage(item);
 			} else {
 				return AllMessages.genericMessage;

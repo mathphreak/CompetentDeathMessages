@@ -199,7 +199,7 @@ public abstract class AllMessages {
 		handleArmedPlayerDamage(playerStick, Material.STICK);
 		
 		// for damage from a player not holding something
-		handleEntityDamage(playerNothing, EntityType.PLAYER);
+		handleArmedPlayerDamage(playerNothing, Material.AIR);
 		
 		for (Message m : allMessages) {
 			messages.add(m);
@@ -237,7 +237,17 @@ public abstract class AllMessages {
 	}
 	
 	public static Message getFallbackArmedPlayerMessage(Material itemHeld) {
-		return new Message("<killer> beat <victim> to death with a " + itemHeld.toString().toLowerCase(), null, itemHeld, EntityType.PLAYER);
+		String itemName = itemHeld.toString().toLowerCase();
+		itemName = itemName.replace('_', ' ');
+		String article = "";
+		if (GrammarStuff.needsA.contains(itemName)) {
+			article = "a ";
+		}
+		if (GrammarStuff.needsAn.contains(itemName)) {
+			article = "a n";
+		}
+		String messageTemplate = "<killer> beat <victim> to death with " + article + itemName;
+		return new Message(messageTemplate, null, itemHeld, EntityType.PLAYER);
 	}
 	
 	public final static Message genericMessage = new Message("<victim> died mysteriously", null, null, null);
