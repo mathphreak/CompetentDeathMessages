@@ -239,13 +239,7 @@ public abstract class AllMessages {
 	public static Message getFallbackArmedPlayerMessage(Material itemHeld) {
 		String itemName = itemHeld.toString().toLowerCase();
 		itemName = itemName.replace('_', ' ');
-		String article = "";
-		if (GrammarStuff.needsA.contains(itemName)) {
-			article = "a ";
-		}
-		if (GrammarStuff.needsAn.contains(itemName)) {
-			article = "a n";
-		}
+		String article = GrammarStuff.lookup(itemHeld);
 		String messageTemplate = "<killer> beat <victim> to death with " + article + itemName;
 		return new Message(messageTemplate, null, itemHeld, EntityType.PLAYER);
 	}
