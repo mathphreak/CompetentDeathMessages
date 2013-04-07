@@ -47,6 +47,7 @@ public class CompetentDeathMessages extends JavaPlugin implements Listener {
 		} else if (lastDamageEvent instanceof EntityDamageByEntityEvent) {
 			EntityDamageByEntityEvent entityDamageEvent = (EntityDamageByEntityEvent) lastDamageEvent;
 			Entity damager = entityDamageEvent.getDamager();
+			System.out.println("Damaged by entity " + damager.getType());
 			if (damager instanceof Projectile) {
 				damager = ((Projectile) damager).getShooter();
 			}

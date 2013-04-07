@@ -145,7 +145,7 @@ public abstract class AllMessages {
 	};
 	
 	private final static String wolf[] = {
-		"<victim> was less lucky than Liam Neeson in " + ChatColor.ITALIC + "The Grey" + ChatColor.RESET
+		"<victim> punched the wrong dog"
 	};
 	
 	private final static String playerDiamondSword[] = {
@@ -193,6 +193,7 @@ public abstract class AllMessages {
 		handleEntityDamage(iron_golem, EntityType.IRON_GOLEM);
 		handleEntityDamage(magma_cube, EntityType.MAGMA_CUBE);
 		handleEntityDamage(zombiepigman, EntityType.PIG_ZOMBIE);
+		handleEntityDamage(explosion, EntityType.PRIMED_TNT);
 		handleEntityDamage(silverfish, EntityType.SILVERFISH);
 		handleEntityDamage(skeleton, EntityType.SKELETON);
 		handleEntityDamage(slime, EntityType.SLIME);

@@ -12,20 +12,35 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public abstract class MessageWrapper {
 	
-	private static Message getMessage(DamageCause cause, EntityType type, Material item, ItemStack detailedItem) {
+	private static final Value<DamageCause> NULL_CAUSE = new Value<DamageCause>(null);
+	
+	private static final Value<EntityType> NULL_TYPE = new Value<EntityType>(null);
+	
+	private static final Value<Material> NULL_MATERIAL = new Value<Material>(null);
+
+	private static <T extends Object> boolean checkEquality(T a, T b) {
+		return a == null ? b == null : a.equals(b);
+	}
+	
+	private static <T extends Object> boolean check(Value<T> a, T b) {
+		return !a.cares || checkEquality(a.value, b);
+	}
+	
+	private static Message getMessage(Value<DamageCause> cause,
+			Value<EntityType> type, Value<Material> item, ItemStack detailedItem) {
 		ArrayList<Message> potentialMessages = new ArrayList<Message>();
 		for (Message candidate : AllMessages.messages) {
-			if (cause == null || cause.equals(candidate.getCause())) {
-				if (type == null || type.equals(candidate.getEntityType())) {
-					if (item == null || item.equals(candidate.getMaterial())) {
+			if (check(cause, candidate.getCause())) {
+				if (check(type, candidate.getEntityType())) {
+					if (check(item, candidate.getMaterial())) {
 						potentialMessages.add(candidate);
 					}
 				}
 			}
 		}
 		if (potentialMessages.isEmpty()) {
-			if (type != null && type.equals(EntityType.PLAYER) && item != null &&
-					detailedItem != null && !item.equals(Material.AIR)) {
+			if (checkEquality(type.value, EntityType.PLAYER) && item.value != null &&
+					detailedItem != null && !item.value.equals(Material.AIR)) {
 				return AllMessages.getFallbackArmedPlayerMessage(detailedItem);
 			} else {
 				return AllMessages.genericMessage;
@@ -37,20 +52,20 @@ public abstract class MessageWrapper {
 		}
 	}
 	
-	private static Message getMessage(DamageCause cause, EntityType type, Material item) {
+	private static Message getMessage(Value<DamageCause> cause, Value<EntityType> type, Value<Material> item) {
 		return getMessage(cause, type, item, null);
 	}
 	
-	private static Message getMessage(DamageCause cause, EntityType type, ItemStack item) {
-		return getMessage(cause, type, item.getType(), item);
+	private static Message getMessage(Value<DamageCause> cause, Value<EntityType> type, ItemStack item, boolean isItemStack) {
+		return getMessage(cause, type, Value.make(item.getType()), item);
 	}
 	
 	public static String getMessage(String victimName, Material blockKilledBy) {
-		return getMessage((DamageCause) null, null, blockKilledBy).instantiate(victimName);
+		return getMessage(NULL_CAUSE, NULL_TYPE, Value.make(blockKilledBy)).instantiate(victimName);
 	}
 	
 	public static String getMessage(String victimName, EntityType murdererType) {
-		return getMessage((DamageCause) null, murdererType, (Material) null).instantiate(victimName);
+		return getMessage(NULL_CAUSE, Value.make(murdererType), NULL_MATERIAL).instantiate(victimName);
 	}
 	
 	public static String getMessage(String victimName, String killerName, ItemStack heldItem) {
@@ -62,17 +77,17 @@ public abstract class MessageWrapper {
 		}
 		String result = "";
 		while (result.equals("")) {
-			Message message = getMessage((DamageCause) null, EntityType.PLAYER, heldItem);
+			Message message = getMessage(NULL_CAUSE, Value.make(EntityType.PLAYER), heldItem, true);
 			result = message.instantiate(victimName, killerName, itemName);
 		}
 		return result;
 	}
 	
 	public static String getMessage(String victimName, DamageCause cause) {
-		return getMessage(cause, null, (Material) null).instantiate(victimName);
+		return getMessage(Value.make(cause), NULL_TYPE, NULL_MATERIAL).instantiate(victimName);
 	}
 	
 	public static String getMessage(String victimName, String killerName, DamageCause cause) {
-		return getMessage(cause, EntityType.PLAYER, (Material) null).instantiate(victimName, killerName);
+		return getMessage(Value.make(cause), Value.make(EntityType.PLAYER), NULL_MATERIAL).instantiate(victimName, killerName);
 	}
 }
