@@ -47,6 +47,9 @@ public class CompetentDeathMessages extends JavaPlugin implements Listener {
 		} else if (lastDamageEvent instanceof EntityDamageByEntityEvent) {
 			EntityDamageByEntityEvent entityDamageEvent = (EntityDamageByEntityEvent) lastDamageEvent;
 			Entity damager = entityDamageEvent.getDamager();
+			if (damager instanceof Projectile) {
+				damager = ((Projectile) damager).getShooter();
+			}
 			if (damager instanceof Player) {
 				Player killer = (Player) damager;
 				String killerName = killer.getDisplayName();
@@ -57,7 +60,9 @@ public class CompetentDeathMessages extends JavaPlugin implements Listener {
 			}
 		} else {
 			DamageCause cause = lastDamageEvent.getCause();
-			if (System.currentTimeMillis() - lastTimeDamagedByPlayerMap.get(victimName) < 5000) {
+			long now = System.currentTimeMillis();
+			Long lastTime = lastTimeDamagedByPlayerMap.get(victimName);
+			if (lastTime != null && now - lastTime < 5000) {
 				event.setDeathMessage(MessageWrapper.getMessage(victimName, lastDamagerMap.get(victimName), cause));
 			} else {
 				event.setDeathMessage(MessageWrapper.getMessage(victimName, cause));

@@ -153,6 +153,10 @@ public abstract class AllMessages {
 		"{{<killer>'s mighty blade \"<item>\" was driven through <victim>}}"
 	};
 	
+	private final static String playerWrittenBook[] = {
+		"<killer> killed <victim> with a fine work of literature{{ named \"<item>\"}}"
+	};
+	
 	private final static Message allMessages[] = {
 		// if there are any uncategorized messages, they go here
 		// but there shouldn't be
@@ -205,6 +209,7 @@ public abstract class AllMessages {
 		// note: generic messages are handled by the fallback method at the bottom of this class
 		handleArmedPlayerDamage(playerStick, Material.STICK);
 		handleArmedPlayerDamage(playerDiamondSword, Material.DIAMOND_SWORD);
+		handleArmedPlayerDamage(playerWrittenBook, Material.WRITTEN_BOOK);
 		
 		// for damage from a player not holding something
 		handleArmedPlayerDamage(playerNothing, Material.AIR);
