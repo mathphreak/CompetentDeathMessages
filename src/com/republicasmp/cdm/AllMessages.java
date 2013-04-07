@@ -24,7 +24,8 @@ public abstract class AllMessages {
 	};
 	
 	private final static String zombies[] = {
-		"<victim> was left for dead"
+		"<victim> was left for dead",
+		"Zombies ate <victim>"
 	};
 	
 	private final static String witch[] = {
@@ -39,7 +40,8 @@ public abstract class AllMessages {
 	};
 	
 	private final static String pushedFall[] = {
-		"<killer> pushed <victim> off a cliff"
+		"<killer> pushed <victim> off a cliff",
+		"<killer> was the Scar to <victim>'s Mufasa"
 	};
 	
 	private final static String cactus[] = {
@@ -61,7 +63,8 @@ public abstract class AllMessages {
 	};
 	
 	private final static String explosion[] = {
-		"<victim> is now scattered atoms"
+		"<victim> is now scattered atoms",
+		"<victim> had too short a fuse"
 	};
 	
 	private final static String fallingWhatever[] = {
@@ -69,27 +72,33 @@ public abstract class AllMessages {
 	};
 	
 	private final static String lava[] = {
-		"<victim> forgot the difference between water and lava"
+		"<victim> forgot the difference between water and lava",
+		"<victim> was melted"
 	};
 	
 	private final static String poison[] = {
-		"<victim> drank too much expired milk"
+		"<victim> drank too much expired milk",
+		"<victim> ate the wrong food"
 	};
 	
 	private final static String starvation[] = {
-		"<victim> forgot to pack a lunch"
+		"<victim> forgot to pack a lunch",
+		"<victim> should have spent more at the grocery store"
 	};
 	
 	private final static String lightning[] = {
-		"<victim> was struck by lightning"
+		"<victim> was struck by lightning",
+		"<victim> was smited by the gods (not to be confused with the admins)"
 	};
 	
 	private final static String suffocation[] = {
-		"<victim> had its head in the blocks"
+		"<victim> had its head in the blocks",
+		"<victim> ran out of room to breathe"
 	};
 	
 	private final static String suicide[] = {
-		"<victim> was tired of living"
+		"<victim> was tired of living",
+		"<victim> pulled the plug on life"
 	};
 	
 	private final static String blaze[] = {
@@ -97,55 +106,68 @@ public abstract class AllMessages {
 	};
 	
 	private final static String spider[] = {
-		"<victim> had an unfortunate encounter with a spider" // TODO cave vs regular spiders?
+		"<victim> had an unfortunate encounter with a spider", // TODO cave vs regular spiders?
+		"<victim> was slain by Shelob's younger brother"
 	};
 	
 	private final static String creeper[] = {
-		"<victim>'s epitaph will be SsssssSssSSsSSssSS$...BOOM"
+		"<victim>'s epitaph will be SsssssSssSSsSSssSS$...BOOM",
+		"<victim> had something creepy happen"
 	};
 	
 	private final static String ender_dragon[] = {
-		"<victim> 0; Ender Dragon 1"
+		"<victim> 0; Ender Dragon 1",
+		"<victim>'s head is mounted on the wall of the dragon's lair"
 	};
 	
 	private final static String enderman[] = {
-		"<victim> saw static, then the faceless monster...no wait"
+		"<victim> saw static, then the faceless monster...no wait",
+		"<victim> got backstabbed by the tall ones"
 	};
 	
 	private final static String ghast[] = {
-		"<victim> suffered a ghastly fate"
+		"<victim> suffered a ghastly fate",
+		"<victim> got fireballed into oblivion"
 	};
 	
 	private final static String iron_golem[] = {
-		"<victim> should have picked on something with less metal"
+		"<victim> should have picked on something with less metal",
+		"<victim> picked on too many villagers"
 	};
 	
 	private final static String magma_cube[] = {
-		"<victim> was killed by the coolest of all monsters"
+		"<victim> was killed by the coolest of all monsters",
+		"<victim> saw fire, then a cube, then a cube on fire, then nothing"
 	};
 	
 	private final static String zombiepigman[] = {
-		"<victim> was slain by undead pigs...yay Minecraft!"
+		"<victim> was slain by undead pigs...yay Minecraft!",
+		"<victim> lost to the mob of pigs"
 	};
 	
 	private final static String silverfish[] = {
-		"<victim>'s corpse stinks of fish"
+		"<victim>'s corpse stinks of fish",
+		"<victim> mined too much in a stronghold"
 	};
 	
 	private final static String skeleton[] = {
-		"<victim> was sniped from a distance"
+		"<victim> was sniped from a distance",
+		"<victim> succumbed a headshot from the expert sniper"
 	};
 	
 	private final static String slime[] = {
-		"<victim> was slimed"
+		"<victim> was slimed",
+		"<victim> is now a slimy piece of deadness"
 	};
 	
 	private final static String wither[] = {
-		"<victim> messed with the boss"
+		"<victim> messed with the boss",
+		"<victim> tried to tame the three-headed monster"
 	};
 	
 	private final static String wolf[] = {
-		"<victim> punched the wrong dog"
+		"<victim> punched the wrong dog",
+		"<victim> was prey"
 	};
 	
 	private final static String playerDiamondSword[] = {
@@ -154,7 +176,8 @@ public abstract class AllMessages {
 	};
 	
 	private final static String playerWrittenBook[] = {
-		"<killer> killed <victim> with a fine work of literature{{ named \"<item>\"}}"
+		"<killer> killed <victim> with a fine work of literature{{ named \"<item>\"}}",
+		"{{<killer> abused an autographed copy of " + ChatColor.ITALIC + "<item>" + ChatColor.RESET + " to kill <victim>}}"
 	};
 	
 	private final static Message allMessages[] = {
