@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.inventory.ItemStack;
 
 public abstract class AllMessages {
 	private final static String fallDamage[] = {
@@ -32,7 +33,7 @@ public abstract class AllMessages {
 	
 	private final static String customDeathType[] = {
 		"<victim> was possibly smited by an admin",
-		"<victim> died (it was prod's fault)",
+		"<victim> died (it was Prod's fault)",
 		"<victim> suffered death by Republica",
 		ChatColor.MAGIC + "THE ADMINS" + ChatColor.RESET + " killed <victim>"
 	};
@@ -147,6 +148,11 @@ public abstract class AllMessages {
 		"<victim> was less lucky than Liam Neeson in " + ChatColor.ITALIC + "The Grey" + ChatColor.RESET
 	};
 	
+	private final static String playerDiamondSword[] = {
+		"<killer> slew <victim> with a diamond-encrusted weapon{{ named \"<item>\"}}",
+		"{{<killer>'s mighty blade \"<item>\" was driven through <victim>}}"
+	};
+	
 	private final static Message allMessages[] = {
 		// if there are any uncategorized messages, they go here
 		// but there shouldn't be
@@ -195,8 +201,10 @@ public abstract class AllMessages {
 		// for damage from a cause and a player
 		handlePlayerCauseDamage(pushedFall, DamageCause.FALL);
 		
-		// for damage from a player holding something
+		// for damage from a player holding something special
+		// note: generic messages are handled by the fallback method at the bottom of this class
 		handleArmedPlayerDamage(playerStick, Material.STICK);
+		handleArmedPlayerDamage(playerDiamondSword, Material.DIAMOND_SWORD);
 		
 		// for damage from a player not holding something
 		handleArmedPlayerDamage(playerNothing, Material.AIR);
@@ -236,12 +244,12 @@ public abstract class AllMessages {
 		}
 	}
 	
-	public static Message getFallbackArmedPlayerMessage(Material itemHeld) {
-		String itemName = itemHeld.toString().toLowerCase();
-		itemName = itemName.replace('_', ' ');
-		String article = GrammarStuff.lookup(itemHeld);
-		String messageTemplate = "<killer> beat <victim> to death with " + article + itemName;
-		return new Message(messageTemplate, null, itemHeld, EntityType.PLAYER);
+	public static Message getFallbackArmedPlayerMessage(ItemStack itemHeld) {
+		String materialName = itemHeld.getType().toString().toLowerCase();
+		materialName = materialName.replace('_', ' ');
+		String article = GrammarStuff.lookup(itemHeld.getType());
+		String messageTemplate = "<killer> beat <victim> to death with " + article + materialName + "{{ named \"<item>\"}}";
+		return new Message(messageTemplate, null, itemHeld.getType(), EntityType.PLAYER);
 	}
 	
 	public final static Message genericMessage = new Message("<victim> died mysteriously", null, null, null);

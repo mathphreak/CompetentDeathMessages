@@ -16,6 +16,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CompetentDeathMessages extends JavaPlugin implements Listener {
@@ -27,7 +28,7 @@ public class CompetentDeathMessages extends JavaPlugin implements Listener {
 			String label, String[] args) {
 		if (command.getName().equalsIgnoreCase("fakekill")) {
 			if (sender instanceof Player) {
-				Bukkit.broadcastMessage(MessageWrapper.getMessage(args[0], sender.getName(), ((Player) sender).getItemInHand().getType()));
+				Bukkit.broadcastMessage(MessageWrapper.getMessage(args[0], sender.getName(), ((Player) sender).getItemInHand()));
 				return true;
 			}
 		}
@@ -49,8 +50,8 @@ public class CompetentDeathMessages extends JavaPlugin implements Listener {
 			if (damager instanceof Player) {
 				Player killer = (Player) damager;
 				String killerName = killer.getDisplayName();
-				Material heldItemType = killer.getItemInHand().getType();
-				event.setDeathMessage(MessageWrapper.getMessage(victimName, killerName, heldItemType));
+				ItemStack heldItem = killer.getItemInHand();
+				event.setDeathMessage(MessageWrapper.getMessage(victimName, killerName, heldItem));
 			} else {
 				event.setDeathMessage(MessageWrapper.getMessage(victimName, damager.getType()));
 			}
