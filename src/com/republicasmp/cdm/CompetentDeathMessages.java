@@ -2,10 +2,7 @@ package com.republicasmp.cdm;
 
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -23,18 +20,6 @@ public class CompetentDeathMessages extends JavaPlugin implements Listener {
 	private HashMap<String, String> lastDamagerMap;
 	private HashMap<String, Long> lastTimeDamagedByPlayerMap;
 	
-	@Override
-	public boolean onCommand(CommandSender sender, Command command,
-			String label, String[] args) {
-		if (command.getName().equalsIgnoreCase("fakekill")) {
-			if (sender instanceof Player) {
-				Bukkit.broadcastMessage(MessageWrapper.getMessage(args[0], sender.getName(), ((Player) sender).getItemInHand()));
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		Player victim = event.getEntity();
@@ -42,9 +27,13 @@ public class CompetentDeathMessages extends JavaPlugin implements Listener {
 		EntityDamageEvent lastDamageEvent = victim.getLastDamageCause();
 		if (lastDamageEvent instanceof EntityDamageByBlockEvent) {
 			EntityDamageByBlockEvent blockDamageEvent = (EntityDamageByBlockEvent) lastDamageEvent;
-			Material blockType = blockDamageEvent.getDamager().getType();
-			event.setDeathMessage(MessageWrapper.getMessage(victimName, blockType));
-		} else if (lastDamageEvent instanceof EntityDamageByEntityEvent) {
+			if (blockDamageEvent.getCause().equals(DamageCause.CONTACT)) {
+				Material blockType = blockDamageEvent.getDamager().getType();
+				event.setDeathMessage(MessageWrapper.getMessage(victimName, blockType));
+				return;
+			}
+		}
+		if (lastDamageEvent instanceof EntityDamageByEntityEvent) {
 			EntityDamageByEntityEvent entityDamageEvent = (EntityDamageByEntityEvent) lastDamageEvent;
 			Entity damager = entityDamageEvent.getDamager();
 			System.out.println("Damaged by entity " + damager.getType());
@@ -56,18 +45,19 @@ public class CompetentDeathMessages extends JavaPlugin implements Listener {
 				String killerName = killer.getDisplayName();
 				ItemStack heldItem = killer.getItemInHand();
 				event.setDeathMessage(MessageWrapper.getMessage(victimName, killerName, heldItem));
+				return;
 			} else {
 				event.setDeathMessage(MessageWrapper.getMessage(victimName, damager.getType()));
+				return;
 			}
+		}
+		DamageCause cause = lastDamageEvent.getCause();
+		long now = System.currentTimeMillis();
+		Long lastTime = lastTimeDamagedByPlayerMap.get(victimName);
+		if (lastTime != null && now - lastTime < 5000) {
+			event.setDeathMessage(MessageWrapper.getMessage(victimName, lastDamagerMap.get(victimName), cause));
 		} else {
-			DamageCause cause = lastDamageEvent.getCause();
-			long now = System.currentTimeMillis();
-			Long lastTime = lastTimeDamagedByPlayerMap.get(victimName);
-			if (lastTime != null && now - lastTime < 5000) {
-				event.setDeathMessage(MessageWrapper.getMessage(victimName, lastDamagerMap.get(victimName), cause));
-			} else {
-				event.setDeathMessage(MessageWrapper.getMessage(victimName, cause));
-			}
+			event.setDeathMessage(MessageWrapper.getMessage(victimName, cause));
 		}
 	}
 	

@@ -9,6 +9,9 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class AllMessages {
+	private final static String quoteItem = "\"<item>\"";
+	private final static String italicItem = ChatColor.ITALIC + "<item>" + ChatColor.RESET;
+	
 	private final static String fallDamage[] = {
 		"Cleanup on aisle 12, we seem to have spilled some <victim>",
 		"<victim> can't break the laws of physics",
@@ -71,7 +74,8 @@ public abstract class AllMessages {
 	
 	private final static String playerNothing[] = {
 		"<killer> savagely beat <victim> to death with his/her bare hands",
-		"<killer> savagely beat <victim> to death with her/his bare hands"
+		"<killer> savagely beat <victim> to death with her/his bare hands",
+		"<killer> pummeled <victim> to death"
 	};
 	
 	private final static String fire[] = {
@@ -91,7 +95,11 @@ public abstract class AllMessages {
 	};
 	
 	private final static String fallingWhatever[] = {
-		"<victim> was squished to death under something" // TODO if it was an anvil, laugh about it
+		"<victim> was squished to death under something", // TODO if it was an anvil, laugh about it
+		"<victim> was crushed to death by something",
+		"<victim> was smushed under something",
+		"<victim> was squashed by something",
+		"<victim> is now a pancake"
 	};
 	
 	private final static String lava[] = {
@@ -143,11 +151,15 @@ public abstract class AllMessages {
 	};
 	
 	private final static String blaze[] = {
-		"<victim> went out in a blaze of glory"
+		"<victim> went out in a blaze of glory",
+		"<victim> went to blazes",
+		"<victim> found a blaze spawner...the hard way",
+		"<victim> was burned alive by blazes",
+		"<victim> was slain by a Lesser Flying Fireball-Breathing Monster"
 	};
 	
 	private final static String spider[] = {
-		"<victim> had an unfortunate encounter with a spider", // TODO cave vs regular spiders?
+		"<victim> had an unfortunate encounter with a spider",
 		"<victim> was slain by Shelob's younger brother",
 		"<victim> was slain by Shelob's younger sister",
 		"<victim> ran into the eight-legged beast",
@@ -182,7 +194,7 @@ public abstract class AllMessages {
 		"<victim> suffered a ghastly fate",
 		"<victim> got fireballed into oblivion",
 		"<victim> shed a ghast tear",
-		"<victim> was slaughtered by a flying fireball machine",
+		"<victim> was slain by a Greater Flying Fireball-Breathing Monster",
 		"<victim> was killed by those stupid ghasts"
 	};
 	
@@ -251,13 +263,19 @@ public abstract class AllMessages {
 	};
 	
 	private final static String playerDiamondSword[] = {
-		"<killer> slew <victim> with a diamond-encrusted weapon{{ named \"<item>\"}}",
-		"{{<killer>'s mighty blade \"<item>\" was driven through <victim>}}"
+		"<killer> slew <victim> with a diamond-encrusted weapon{{ named " + quoteItem + "}}",
+		"<killer>'s mighty blade{{ " + quoteItem + "}} was driven through <victim>",
+		"<killer>'s sparkling, shining sword{{ named " + quoteItem + "}} is now stained with <victim>'s blood",
+		"<victim> ran into <killer>'s blade{{ " + quoteItem + "}}",
+		"<victim> was impaled on <killer>'s diamond sword{{ named " + quoteItem + "}}"
 	};
 	
 	private final static String playerWrittenBook[] = {
-		"<killer> killed <victim> with a fine work of literature{{ named \"<item>\"}}",
-		"{{<killer> abused an autographed copy of " + ChatColor.ITALIC + "<item>" + ChatColor.RESET + " to kill <victim>}}"
+		"{{<killer> killed <victim> with a fine work of literature named " + italicItem + "}}",
+		"{{<killer> abused an autographed copy of " + italicItem + " to kill <victim>}}",
+		"{{<killer> killed <victim> with " + italicItem + "}}",
+		"{{<victim> was slain with <killer>'s copy of " + italicItem + "}}",
+		"{{<killer> bloodied a copy of " + italicItem + " on <victim>}}"
 	};
 	
 	private final static Message allMessages[] = {
@@ -325,31 +343,31 @@ public abstract class AllMessages {
 	
 	private static void handleDamageCause(String these[], DamageCause cause) {
 		for (String s : these) {
-			messages.add(new Message(s, cause, null, null));
+			messages.add(new Message(ChatColor.RESET + s, cause, null, null));
 		}
 	}
 	
 	private static void handleBlockDamage(String these[], Material material) {
 		for (String s : these) {
-			messages.add(new Message(s, null, material, null));
+			messages.add(new Message(ChatColor.RESET + s, null, material, null));
 		}
 	}
 	
 	private static void handleEntityDamage(String these[], EntityType type) {
 		for (String s : these) {
-			messages.add(new Message(s, null, null, type));
+			messages.add(new Message(ChatColor.RESET + s, null, null, type));
 		}
 	}
 	
 	private static void handlePlayerCauseDamage(String these[], DamageCause cause) {
 		for (String s : these) {
-			messages.add(new Message(s, cause, null, EntityType.PLAYER));
+			messages.add(new Message(ChatColor.RESET + s, cause, null, EntityType.PLAYER));
 		}
 	}
 	
 	private static void handleArmedPlayerDamage(String these[], Material material) {
 		for (String s : these) {
-			messages.add(new Message(s, null, material, EntityType.PLAYER));
+			messages.add(new Message(ChatColor.RESET + s, null, material, EntityType.PLAYER));
 		}
 	}
 	

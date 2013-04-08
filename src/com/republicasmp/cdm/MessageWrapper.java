@@ -70,7 +70,7 @@ public abstract class MessageWrapper {
 	
 	public static String getMessage(String victimName, String killerName, ItemStack heldItem) {
 		ItemMeta itemMeta = heldItem.getItemMeta();
-		String itemName = itemMeta.hasDisplayName() ? itemMeta.getDisplayName() : "";
+		String itemName = (itemMeta != null && itemMeta.hasDisplayName()) ? itemMeta.getDisplayName() : "";
 		if (itemMeta instanceof BookMeta) {
 			System.out.println("Found a book!");
 			itemName = ((BookMeta) itemMeta).getTitle();
