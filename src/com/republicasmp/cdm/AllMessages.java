@@ -38,7 +38,7 @@ public abstract class AllMessages {
 	
 	private final static String witch[] = {
 		"<victim> got witch slapped",
-		"<victim> only has one problem, but it's a witch",
+		"<victim> only has one problem, rather than 99, but it's a witch",
 		"Witches be trippin' <victim>",
 		"<victim> messed with a master of potions",
 		"<victim> lost to a witch"
@@ -73,8 +73,7 @@ public abstract class AllMessages {
 	};
 	
 	private final static String playerNothing[] = {
-		"<killer> savagely beat <victim> to death with his/her bare hands",
-		"<killer> savagely beat <victim> to death with her/his bare hands",
+		"<killer> savagely beat <victim> to death with their bare hands",
 		"<killer> pummeled <victim> to death"
 	};
 	
@@ -82,8 +81,7 @@ public abstract class AllMessages {
 		"<victim> combusted",
 		"<victim> is now crispy",
 		"<victim> was deep-fried",
-		"Oh well, at least <victim> was warm for the rest of his/her life",
-		"Oh well, at least <victim> was warm for the rest of her/his life"
+		"Oh well, at least <victim> was warm for the rest of their life"
 	};
 	
 	private final static String explosion[] = {
@@ -135,8 +133,7 @@ public abstract class AllMessages {
 	};
 	
 	private final static String suffocation[] = {
-		"<victim> had his/her head in the blocks",
-		"<victim> had her/his head in the blocks",
+		"<victim> had their head in the blocks",
 		"<victim> ran out of room to breathe",
 		"<victim> ran out of O2",
 		"<victim> needed more air"
